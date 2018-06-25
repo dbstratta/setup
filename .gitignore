@@ -16,7 +16,7 @@ coverage
 *.log*
 
 # Binaries for programs and plugins
-setup
+main
 *.exe
 *.exe~
 *.dll
