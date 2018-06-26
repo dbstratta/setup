@@ -3,3 +3,11 @@ sudo: false
 language: go
 
 go: "1.10"
+
+stages:
+  - test
+
+jobs:
+  include:
+    - stage: test
+      script: exit 0
