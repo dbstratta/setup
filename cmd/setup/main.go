@@ -3,15 +3,23 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"runtime"
+
+	"github.com/strattadb/setup/internal/app/ubuntu"
+	"github.com/strattadb/setup/internal/pkg/helpers"
 )
 
 func main() {
-	_, err := detectOS()
+	operatingSystem, err := detectOS()
+	helpers.ExitIfError(err)
 
-	if err != nil {
-		os.Exit(1)
+	switch operatingSystem {
+	case "darwin":
+		log.Fatal("macOS not implemented")
+	case "linux":
+		ubuntu.Setup()
 	}
 }
 
@@ -20,17 +28,17 @@ func detectOS() (string, error) {
 
 	switch operatingSystem {
 	case "darwin":
-		fmt.Println("MacOS detected")
+		fmt.Println("os: macOS")
 	case "linux":
-		fmt.Println("Linux detected")
+		fmt.Println("os: Linux")
 	default:
-		fmt.Fprintf(os.Stderr, "setup: OS %s not supported\n", operatingSystem)
+		fmt.Fprintf(
+			os.Stderr,
+			"setup: OS %s not supported\n",
+			operatingSystem)
+
 		return "", errors.New("OS not supported")
 	}
 
 	return operatingSystem, nil
-}
-
-func setupLinux() error {
-	return nil
 }

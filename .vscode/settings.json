@@ -13,5 +13,6 @@
     "**/.git/subtree-cache/**": true,
     "**/vendor/**": true,
     "**/node_modules/**": true
-  }
+  },
+  "shellcheck.enable": false
 }

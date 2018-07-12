@@ -1,6 +1,8 @@
 # If not running interactively, don't do anything.
 [[ $- != *i* ]] && return
 
+[[ "${EXEC_FISH:-true}" == "true" ]] && exec fish
+
 # Don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 
@@ -32,13 +34,22 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 # Load the Bash Completion script.
-[ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
+[[ -r /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
 
 # Alias definitions.
-[ -f ~/.bash_aliases ] && . ~/.bash_aliases
+[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
 # Bash functions.
-[ -f ~/.bash_functions ] && . ~/.bash_functions
+[[ -f ~/.bash_functions ]] && source ~/.bash_functions
+
+PROMPT_USER="\[\e[01;32m\]\u"
+PROMPT_HOSTNAME="\h\[\e[m\]"
+PROMPT_USER_AND_HOSTNAME="${PROMPT_USER}@${PROMPT_HOSTNAME}"
+PROMPT_CWD="\[\e[01;34m\]:: \w\[\e[m\]"
+PROMPT_GIT_BRANCH="\[\e[01;33m\]\$(parse_git_branch)\[\e[m\]"
 
 # The command prompt.
-export PS1="\[\e[01;32m\]\u@\h\[\e[m\] \[\e[01;34m\] \w\[\e[m\] \[\e[01;33m\]\$(parse_git_branch)\[\e[m\]\n\$ "
+export PS1="${PROMPT_USER_AND_HOSTNAME} ${PROMPT_CWD} ${PROMPT_GIT_BRANCH}\n\$ "
+
+source <(kubectl completion bash)
+source <(minikube completion bash)
