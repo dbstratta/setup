@@ -2,7 +2,6 @@ package packages
 
 import (
 	"fmt"
-	"os/exec"
 
 	"github.com/strattadb/setup/internal/pkg/helpers"
 )
@@ -17,10 +16,7 @@ func installRust() {
 	const rustupURL = "https://sh.rustup.rs"
 	cmdStr := fmt.Sprintf("curl -sSf %s | sh", rustupURL)
 
-	cmd := exec.Command("bash", "-c", cmdStr)
-	err := cmd.Run()
-
-	helpers.LogAndExitIfError(err)
+	helpers.RunBashCommandAndLogAndExitIfError(cmdStr)
 }
 
 func installGo() {
@@ -33,10 +29,7 @@ func installGo() {
 		tar -C /usr/local -xzf go%s.linux-amd64.tar.gz`,
 		goDownloadURL, goVersion)
 
-	cmd := exec.Command("bash", "-c", cmdStr)
-	err := cmd.Run()
-
-	helpers.LogAndExitIfError(err)
+	helpers.RunBashCommandAndLogAndExitIfError(cmdStr)
 }
 
 func installMinikube() {
@@ -51,8 +44,5 @@ func installMinikube() {
 		sudo mv minikube /usr/local/bin/`,
 		minikubeDownloadURL)
 
-	cmd := exec.Command("bash", "-c", cmdStr)
-	err := cmd.Run()
-
-	helpers.LogAndExitIfError(err)
+	helpers.RunBashCommandAndLogAndExitIfError(cmdStr)
 }

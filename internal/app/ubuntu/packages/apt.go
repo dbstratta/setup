@@ -22,6 +22,7 @@ var aptPackages = [50]string{
 	"python3.7",
 	"docker-ce",
 	"kubectl",
+	"fonts-firacode",
 	"xsel"}
 
 func installAptPackages() {
@@ -30,13 +31,10 @@ func installAptPackages() {
 
 	packages := strings.Join(aptPackages[:], " ")
 
-	exec.Command("sudo", "apt-get", "update")
-	cmd := exec.Command("sudo", "apt-get", "-y", "install", packages)
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		fmt.Print(err.Error())
-	}
-	fmt.Printf("%s", output)
+	err := exec.Command("sudo", "apt-get", "update").Run()
+	helpers.LogAndExitIfError(err)
+	err = exec.Command("sudo", "apt-get", "-y", "install", packages).Run()
+	helpers.LogAndExitIfError(err)
 
 	postInstallDocker()
 }
@@ -67,10 +65,7 @@ func addNodeJSAptRepository() {
 
 	cmdStr := fmt.Sprintf("curl -sL %s | sudo -E bash -", nodeSourceURL)
 
-	cmd := exec.Command("bash", "-c", cmdStr)
-	err := cmd.Run()
-
-	helpers.LogAndExitIfError(err)
+	helpers.RunBashCommandAndLogAndExitIfError(cmdStr)
 }
 
 func addYarnAptRepository() {
@@ -83,10 +78,7 @@ func addYarnAptRepository() {
 		yarnPublicKeyURL,
 		echoYarnList)
 
-	cmd := exec.Command("bash", "-c", cmdStr)
-	err := cmd.Run()
-
-	helpers.LogAndExitIfError(err)
+	helpers.RunBashCommandAndLogAndExitIfError(cmdStr)
 }
 
 func addDockerAptRepository() {
@@ -99,10 +91,7 @@ func addDockerAptRepository() {
 		dockerPublicKeyURL,
 		echoDockerList)
 
-	cmd := exec.Command("bash", "-c", cmdStr)
-	err := cmd.Run()
-
-	helpers.LogAndExitIfError(err)
+	helpers.RunBashCommandAndLogAndExitIfError(cmdStr)
 }
 
 func addKubectlAptRepository() {
@@ -115,10 +104,7 @@ func addKubectlAptRepository() {
 		kubectlPublicKeyURL,
 		echoKubectlList)
 
-	cmd := exec.Command("bash", "-c", cmdStr)
-	err := cmd.Run()
-
-	helpers.LogAndExitIfError(err)
+	helpers.RunBashCommandAndLogAndExitIfError(cmdStr)
 }
 
 func postInstallDocker() {
@@ -126,8 +112,5 @@ func postInstallDocker() {
 		sudo groupadd docker && \
 		sudo usermod -aG docker "${USER}"`
 
-	cmd := exec.Command("bash", "-c", cmdStr)
-	err := cmd.Run()
-
-	helpers.LogAndExitIfError(err)
+	helpers.RunBashCommandAndLogAndExitIfError(cmdStr)
 }
