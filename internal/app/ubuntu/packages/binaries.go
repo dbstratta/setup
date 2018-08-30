@@ -20,7 +20,7 @@ func installRust() {
 }
 
 func installGo() {
-	const goVersion = "1.10.3"
+	const goVersion = "1.11"
 	goDownloadURL := fmt.Sprintf(
 		"https://dl.google.com/go/go%s.linux-amd64.tar.gz", goVersion)
 
@@ -33,7 +33,7 @@ func installGo() {
 }
 
 func installMinikube() {
-	const minikubeVersion = "0.28.0"
+	const minikubeVersion = "0.28.2"
 	minikubeDownloadURL := fmt.Sprintf(
 		"https://storage.googleapis.com/minikube/releases/v%s/minikube-linux-amd64",
 		minikubeVersion)

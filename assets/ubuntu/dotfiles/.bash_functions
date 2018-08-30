@@ -9,7 +9,7 @@ function parse_git_branch() {
     fi
 }
 
-# Do ls after every c.
+# List files after every directory change.
 function c {
-    builtin cd "$@" && ls
+    builtin cd "$@" && exa
 }

@@ -1,19 +1,16 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"os"
 	"runtime"
 
 	"github.com/strattadb/setup/internal/app/ubuntu"
-	"github.com/strattadb/setup/internal/pkg/helpers"
 )
 
 func main() {
-	operatingSystem, err := detectOS()
-	helpers.ExitIfError(err)
+	operatingSystem := detectOS()
 
 	switch operatingSystem {
 	case "darwin":
@@ -23,7 +20,7 @@ func main() {
 	}
 }
 
-func detectOS() (string, error) {
+func detectOS() string {
 	const operatingSystem = runtime.GOOS
 
 	switch operatingSystem {
@@ -37,8 +34,8 @@ func detectOS() (string, error) {
 			"setup: OS %s not supported\n",
 			operatingSystem)
 
-		return "", errors.New("OS not supported")
+		os.Exit(1)
 	}
 
-	return operatingSystem, nil
+	return operatingSystem
 }

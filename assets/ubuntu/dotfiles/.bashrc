@@ -1,8 +1,6 @@
 # If not running interactively, don't do anything.
 [[ $- != *i* ]] && return
 
-[[ "${EXEC_FISH:-true}" == "true" ]] && exec fish
-
 # Don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 

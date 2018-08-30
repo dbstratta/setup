@@ -7,18 +7,18 @@ alias ....='c ../../..'
 alias .....='c ../../../..'
 alias ......='c ../../../../..'
 alias .......='c ../../../../../..'
+alias ........='c ../../../../../../..'
 
 # Useful aliases
 alias :q='exit'
 alias sl='ls'
 
 # ls aliases
-alias ll='ls -alhF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ls='exa'
+alias ll='ls --all --long --header'
+alias la='ls --all'
 
 # Color aliases
-alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'

@@ -23,7 +23,8 @@ var aptPackages = [50]string{
 	"docker-ce",
 	"kubectl",
 	"fonts-firacode",
-	"xsel"}
+	"xsel",
+}
 
 func installAptPackages() {
 	removeAptRepositories()

@@ -2,15 +2,26 @@ package ubuntu
 
 import (
 	"os"
+	"os/user"
+	"strings"
+
+	"github.com/strattadb/setup/internal/pkg/helpers"
 )
 
 var folderPaths = []string{
 	"~/projects",
 	"~/work",
-	"~/cs"}
+	"~/cs",
+}
 
 func initializeFileSystem() {
+	currentUser, err := user.Current()
+	helpers.ExitIfError(err)
+
+	homeDir := currentUser.HomeDir
+
 	for _, folderPath := range folderPaths {
-		os.MkdirAll(folderPath, os.ModePerm)
+		path := strings.Replace(folderPath, "~", homeDir, -1)
+		os.MkdirAll(path, os.ModePerm)
 	}
 }
