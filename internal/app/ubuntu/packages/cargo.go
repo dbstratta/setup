@@ -11,6 +11,7 @@ var cargoPackages = [50]string{
 	"ripgrep",
 	"bat",
 	"fd-find",
+	"hexyl"
 }
 
 func installCargoPackages() {
