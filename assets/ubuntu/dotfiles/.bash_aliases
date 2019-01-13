@@ -18,6 +18,9 @@ alias ls='exa'
 alias ll='ls --all --long --header'
 alias la='ls --all'
 
+# cat aliases
+alias cat='bat'
+
 # Color aliases
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
